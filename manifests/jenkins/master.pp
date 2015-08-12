@@ -1,4 +1,4 @@
-# Class: profiles::jenkins::master
+# == Class: profiles::jenkins::master
 # ================================
 #
 # Install and configure a Jenkins server

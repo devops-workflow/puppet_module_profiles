@@ -1,4 +1,4 @@
-# Class: profiles::solr
+# == Class: profiles::solr
 # ================================
 #
 # Install and configure 

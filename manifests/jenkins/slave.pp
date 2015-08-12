@@ -1,4 +1,4 @@
-# Class: profiles::jenkins::slave
+# == Class: profiles::jenkins::slave
 # ================================
 #
 # Install and configure a Jenkins slave

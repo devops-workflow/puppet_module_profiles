@@ -1,4 +1,4 @@
-# Class: profiles::haproxy
+# == Class: profiles::haproxy
 # ================================
 #
 # Install and configure 

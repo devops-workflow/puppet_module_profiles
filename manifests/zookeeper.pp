@@ -1,4 +1,4 @@
-# Class: profiles::zookeeper
+# == Class: profiles::zookeeper
 # ================================
 #
 # Install and configure 

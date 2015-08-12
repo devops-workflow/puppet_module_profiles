@@ -1,4 +1,4 @@
-# Class: profiles::cassandra
+# == Class: profiles::cassandra
 # ================================
 #
 # Install and configure 

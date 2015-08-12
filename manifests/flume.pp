@@ -1,4 +1,4 @@
-# Class: profiles::flume
+# == Class: profiles::flume
 # ================================
 #
 # Install and configure 

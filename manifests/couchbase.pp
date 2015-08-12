@@ -1,4 +1,4 @@
-# Class: profiles::couchbase
+# == Class: profiles::couchbase
 # ================================
 #
 # Install and configure 

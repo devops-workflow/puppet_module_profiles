@@ -1,4 +1,4 @@
-# Class: profiles::kafka
+# == Class: profiles::kafka
 # ================================
 #
 # Install and configure 

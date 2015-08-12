@@ -1,4 +1,4 @@
-# Class: profiles::spark
+# == Class: profiles::spark
 # ================================
 #
 # Install and configure 
