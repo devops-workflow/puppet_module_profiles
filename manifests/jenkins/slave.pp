@@ -12,5 +12,5 @@ class profiles::jenkins::slave {
   }
   # Add puppet-lint plugins
   package { 'lsb': ensure => latest, }
-  package { 'jb': ensure => latest, }
+  package { 'jq': ensure => latest, }
 }
