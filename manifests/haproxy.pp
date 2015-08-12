@@ -6,7 +6,7 @@
 class profiles::haproxy {
   ### HAproxy server
   # Move data/parameters to Hiera once this is working
-  class { 'haproxy':
+  class { '::haproxy':
     global_options  => {
       'log'     => "${::ipaddress} local0",
       #'chroot'  => '/var/lib/haproxy',
@@ -38,7 +38,7 @@ class profiles::haproxy {
     },
   }
 
-  haproxy::listen { 'WXhttp':
+  ::haproxy::listen { 'WXhttp':
     ipaddress => $::ipaddress,
     ports     => '80',
     mode      => 'http',
@@ -51,7 +51,7 @@ class profiles::haproxy {
     },
   }
 
-  haproxy::listen { 'WXhttps':
+  ::haproxy::listen { 'WXhttps':
     mode      => 'http',
     options   => {
       'option'  => [
@@ -64,6 +64,7 @@ class profiles::haproxy {
       "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
     }
   }
+
 #  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
 
   # On web servers
