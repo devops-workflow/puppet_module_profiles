@@ -24,7 +24,7 @@ class profiles::haproxy {
       'option'  => [
         'httplog',
         'dontlognull',
-      ]
+      ],
       'retries' => '3',
       'timeout' => [
         'http-request 10s',
@@ -61,7 +61,7 @@ class profiles::haproxy {
       'balance' => 'roundrobin',
     },
     bind     => {
-      "$::ipaddress:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
+      "$::ipaddress":443 => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
   }
 #  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
 
