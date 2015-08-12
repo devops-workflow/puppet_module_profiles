@@ -62,10 +62,11 @@ class profiles::haproxy {
     },
     bind     => {
       "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
+    }
   }
 #  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
 
-#  # On web servers
+  # On web servers
   @@haproxy::balancermember { $::fqdn:
     listening_service => 'WXhttp',
     server_names      => $::hostname,
@@ -73,7 +74,8 @@ class profiles::haproxy {
     ports             => '80',
     options           => 'check',
   }
-#  # On web servers
+
+  # On web servers
   @@haproxy::balancermember { $::fqdn:
     listening_service => 'WXhttps',
     server_names      => $::hostname,
