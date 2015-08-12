@@ -18,7 +18,7 @@ class profiles::haproxy {
       'stats'   => 'socket /var/lib/haproxy/stats',
       # ssl, ...
     },
-    default_options => {
+    defaults_options => {
       'log'     => 'global',
       'stats'   => 'enable',
       'option'  => [
