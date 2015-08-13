@@ -7,7 +7,7 @@ class profiles::haproxy {
   ### HAproxy server
   # Move data/parameters to Hiera once this is working
   class { '::haproxy':
-    global_options  => {
+    global_options   => {
       'log'                      => "${::ipaddress} local0",
       #'chroot'                   => '/var/lib/haproxy',
       'pidfile'                  => '/var/run/haproxy.pid',
@@ -102,8 +102,9 @@ class profiles::haproxy {
     #ipaddress     => $::ipaddress,
     #ports         => '443',
     #mode          => 'http',
-    options       => { 'default_backend' => 'httpsBackEnd' },
-    # ],
+    options       => [
+      { 'default_backend' => 'httpsBackEnd' },
+    ],
     bind          => {
       "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
     }
@@ -120,7 +121,7 @@ class profiles::haproxy {
   }
 
   haproxy::backend { 'httpsBackEnd':
-    mode          => 'http',
+    #mode          => 'http',
     options       => {
       'option'  => [
         'httpclose',
