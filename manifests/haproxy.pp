@@ -93,7 +93,7 @@ class profiles::haproxy {
     ipaddress     => $::ipaddress,
     ports         => '80',
     mode          => 'http',
-    options       =>  {
+    options       => {
       'default_backend' => 'httpBackEnd',
     },
   }
@@ -118,7 +118,7 @@ class profiles::haproxy {
   }
 
   haproxy::backend { 'httpsBackEnd':
-    options     => {
+    options => {
       'option'  => [
         'httpclose',
         'forwardfor',
