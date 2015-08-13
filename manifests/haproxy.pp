@@ -101,6 +101,9 @@ class profiles::haproxy {
     options       => [
       { 'default_backend' => 'httpsBackEnd' },
     ],
+    bind      => {
+      "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
+    }
   }
 
   haproxy::backend { 'httpBackEnd':
@@ -121,9 +124,6 @@ class profiles::haproxy {
       ],
       'balance' => 'roundrobin',
     },
-    bind      => {
-      "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
-    }
   }
 
   # On web servers for backend
