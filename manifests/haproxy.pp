@@ -77,13 +77,13 @@ class profiles::haproxy {
   }
 
   # On web servers
-  @@::haproxy::balancermember { $::fqdn:
-    listening_service => 'WXhttps',
-    server_names      => $::hostname,
-    ipaddresses       => $::ipaddress,
-    ports             => '443',
-    options           => 'check',
-  }
+#  @@::haproxy::balancermember { $::fqdn:
+#    listening_service => 'WXhttps',
+#    server_names      => $::hostname,
+#    ipaddresses       => $::ipaddress,
+#    ports             => '443',
+#    options           => 'check',
+#  }
 #  haproxy::frontend { 'httpFrontEnd':
 #    ipaddress     => $::ipaddress,
 #    ports         => '80',
