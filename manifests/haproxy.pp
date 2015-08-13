@@ -38,11 +38,73 @@ class profiles::haproxy {
     },
   }
 
-  ::haproxy::listen { 'WXhttp':
-    ipaddress => $::ipaddress,
-    ports     => '80',
-    mode      => 'http',
-    options   => {
+#  ::haproxy::listen { 'WXhttp':
+#    ipaddress => $::ipaddress,
+#    ports     => '80',
+#    mode      => 'http',
+#    options   => {
+#      'option'  => [
+#        'httpclose',
+#        'forwardfor',
+#      ],
+#      'balance' => 'roundrobin',
+#    },
+#  }
+
+#  ::haproxy::listen { 'WXhttps':
+#    mode      => 'http',
+#    options   => {
+#      'option'  => [
+#        'httpclose',
+#        'forwardfor',
+#      ],
+#      'balance' => 'roundrobin',
+#    },
+#    bind      => {
+#      "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
+#    }
+#  }
+
+#  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
+
+  # On web servers for listen
+#  @@::haproxy::balancermember { $::fqdn:
+#    listening_service => 'WXhttp',
+#    server_names      => $::hostname,
+#    ipaddresses       => $::ipaddress,
+#    ports             => '80',
+#    options           => 'check',
+#  }
+
+  # On web servers for listen
+#  @@::haproxy::balancermember { $::fqdn:
+#    listening_service => 'WXhttps',
+#    server_names      => $::hostname,
+#    ipaddresses       => $::ipaddress,
+#    ports             => '443',
+#    options           => 'check',
+#  }
+
+  haproxy::frontend { 'httpFrontEnd':
+    ipaddress     => $::ipaddress,
+    ports         => '80',
+    mode          => 'http',
+    options       => [
+      { 'default_backend' => 'httpBackEnd' },
+    ],
+  }
+
+  haproxy::frontend { 'httpsFrontEnd':
+    ipaddress     => $::ipaddress,
+    ports         => '443',
+    mode          => 'http',
+    options       => [
+      { 'default_backend' => 'httpsBackEnd' },
+    ],
+  }
+
+  haproxy::backend { 'httpBackEnd':
+    options => {
       'option'  => [
         'httpclose',
         'forwardfor',
@@ -51,9 +113,8 @@ class profiles::haproxy {
     },
   }
 
-  ::haproxy::listen { 'WXhttps':
-    mode      => 'http',
-    options   => {
+  haproxy::backend { 'httpsBackEnd':
+    options => {
       'option'  => [
         'httpclose',
         'forwardfor',
@@ -65,58 +126,15 @@ class profiles::haproxy {
     }
   }
 
-#  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
-
-  # On web servers
+  # On web servers for backend
   @@::haproxy::balancermember { $::fqdn:
-    listening_service => 'WXhttp',
+    listening_service => 'httpBackEnd',
     server_names      => $::hostname,
-    ipaddresses       => $::ipaddress,
+    #ipaddresses       => $::ipaddress,
     ports             => '80',
     options           => 'check',
   }
 
-  # On web servers
-#  @@::haproxy::balancermember { $::fqdn:
-#    listening_service => 'WXhttps',
-#    server_names      => $::hostname,
-#    ipaddresses       => $::ipaddress,
-#    ports             => '443',
-#    options           => 'check',
-#  }
-#  haproxy::frontend { 'httpFrontEnd':
-#    ipaddress     => $::ipaddress,
-#    ports         => '80',
-#    mode          => 'http',
-#    options       => [
-#      { 'default_backend' => 'httpBackEnd' },
-#    ],
-#  }
-#  haproxy::frontend { 'httpsFrontEnd':
-#    ipaddress     => $::ipaddress,
-#    ports         => '443',
-#    mode          => 'http',
-#    options       => [
-#      { 'default_backend' => 'httpsBackEnd' },
-#    ],
-#  }
-#  haproxy::backend { 'httpBackEnd':
-#    options => {
-#      'option'  => [
-#        'httpclose',
-#        'forwardfor',
-#      ],
-#      'balance' => 'roundrobin',
-#    },
-#  }
-#  haproxy::backend { 'httpsBackEnd':
-#    options => {
-#      'option'  => [
-#        'httpclose',
-#        'forwardfor',
-#      ],
-#      'balance' => 'roundrobin',
-#    },
-#  }
-#  # haproxy:: userlist, peers, peer
+  # haproxy:: userlist, peers, peer
+
 }
