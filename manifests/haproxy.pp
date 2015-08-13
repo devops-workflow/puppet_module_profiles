@@ -68,7 +68,7 @@ class profiles::haproxy {
 #  Haproxy::Balancermember <<| listening_service == 'httpFrontEnd' |>>
 
   # On web servers
-  @@haproxy::balancermember { $::fqdn:
+  @@::haproxy::balancermember { $::fqdn:
     listening_service => 'WXhttp',
     server_names      => $::hostname,
     ipaddresses       => $::ipaddress,
@@ -77,7 +77,7 @@ class profiles::haproxy {
   }
 
   # On web servers
-  @@haproxy::balancermember { $::fqdn:
+  @@::haproxy::balancermember { $::fqdn:
     listening_service => 'WXhttps',
     server_names      => $::hostname,
     ipaddresses       => $::ipaddress,
