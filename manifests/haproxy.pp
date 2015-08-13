@@ -8,7 +8,7 @@ class profiles::haproxy {
   # Move data/parameters to Hiera once this is working
   class { '::haproxy':
     global_options   => {
-      'log'                      => "${::ipaddress} local0",
+      'log'                      => '127.0.0.1 local0',
       #'chroot'                   => '/var/lib/haproxy',
       'pidfile'                  => '/var/run/haproxy.pid',
       #'maxconn'                  => '4000',
@@ -19,7 +19,7 @@ class profiles::haproxy {
       'ca-base'                  => '/etc/ssl/certs',
       'crt-base'                 => '/etc/ssl/private',
       'ssl-default-bind-ciphers' => 'kEECDH+aRSA+AES:kRSA+AES:+AES256:RC4-SHA:!kEDH:!LOW:!EXP:!MD5:!aNULL:!eNULL',
-      'ssl-default-bind-options' => 'no-sslv3',
+      #'ssl-default-bind-options' => 'no-sslv3',
     },
     defaults_options => {
       'log'     => 'global',
@@ -31,8 +31,8 @@ class profiles::haproxy {
       ],
       'retries' => '3',
       'timeout' => [
-        'http-request 10s',
-        'queue 1m',
+        #'http-request 10s',
+        #'queue 1m',
         'connect 60s',
         'client 60s',
         'server 60s',
@@ -93,9 +93,9 @@ class profiles::haproxy {
     ipaddress     => $::ipaddress,
     ports         => '80',
     mode          => 'http',
-    options       => [
+    options       =>  # [
       { 'default_backend' => 'httpBackEnd' },
-    ],
+    # ],
   }
 
   haproxy::frontend { 'httpsFrontEnd':
@@ -121,8 +121,7 @@ class profiles::haproxy {
   }
 
   haproxy::backend { 'httpsBackEnd':
-    #mode          => 'http',
-    options       => {
+    options     => {
       'option'  => [
         'httpclose',
         'forwardfor',
@@ -133,11 +132,20 @@ class profiles::haproxy {
   }
 
   # On web servers for backend
-  @@::haproxy::balancermember { $::fqdn:
+  @@::haproxy::balancermember { "${::fqdn}-http":
     listening_service => 'httpBackEnd',
     server_names      => $::hostname,
     #ipaddresses       => $::ipaddress,
     ports             => '80',
+    options           => 'check',
+  }
+
+  # On web servers for backend
+  @@::haproxy::balancermember { "${::fqdn}-https":
+    listening_service => 'httpsBackEnd',
+    server_names      => $::hostname,
+    #ipaddresses       => $::ipaddress,
+    ports             => '443',
     options           => 'check',
   }
 
