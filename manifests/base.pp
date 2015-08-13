@@ -5,6 +5,7 @@
 #
 class profiles::base {
   include epel
-  $pkg_utils = ['curl', 'sysstat', 'tcpdump', 'telnet', 'traceroute', 'unzip', 'wget', 'xdelta' ]
+  # Defined in kafka: wget
+  $pkg_utils = ['curl', 'sysstat', 'tcpdump', 'telnet', 'traceroute', 'unzip', 'xdelta' ]
   package { $pkg_utils: ensure => latest, }
 }
