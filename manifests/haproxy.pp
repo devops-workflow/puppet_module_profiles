@@ -95,9 +95,9 @@ class profiles::haproxy {
   }
 
   haproxy::frontend { 'httpsFrontEnd':
-    ipaddress     => $::ipaddress,
-    ports         => '443',
-    mode          => 'http',
+    #ipaddress     => $::ipaddress,
+    #ports         => '443',
+    #mode          => 'http',
     options       => [
       { 'default_backend' => 'httpsBackEnd' },
     ],
