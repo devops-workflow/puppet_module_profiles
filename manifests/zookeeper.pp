@@ -52,5 +52,6 @@ class profiles::zookeeper {
     manage_firewall        => true,
     manage_service         => true,
   }
-  # zookeeper::resource::configuration {'localhost': }
+
+  zookeeper::resource::configuration {'localhost': }
 }
