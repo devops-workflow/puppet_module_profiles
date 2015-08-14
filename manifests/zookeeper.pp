@@ -14,7 +14,7 @@ class profiles::zookeeper {
     user                   => 'zookeeper',
     manage_user            => true,
     tmpDir                 => '/tmp',
-    installDir             => '/opt',
+    installDir             => '/opt/zookeeper',
     jvmFlags               => '-Dzookeeper.log.threshold=INFO -Xmx1g',
     checksum               => true,
     clientPortAddress      => '127.0.0.1',
