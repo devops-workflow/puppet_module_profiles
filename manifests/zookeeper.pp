@@ -49,8 +49,8 @@ class profiles::zookeeper {
     leaderElectionPort     => 2888,
     install_java           => true,
     java_package           => 'java-1.8.0-openjdk',
-    manage_firewall        => true,
-    manage_service         => true,
+    manage_firewall        => false,
+    manage_service         => false,
   }
 
   zookeeper::resource::configuration {'localhost': }
