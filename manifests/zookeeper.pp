@@ -26,7 +26,7 @@ class profiles::zookeeper {
     dataLogDir             => '/var/log/zookeeper',
     globalOutstandingLimit => 1000,
     maxClientCnxns         => 60,
-    purgeInterval          => 1,
+    purgeInterval          => 24,
     leaderServes           => 'yes',
     servers                => {
       0 => {
