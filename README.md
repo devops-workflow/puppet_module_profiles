@@ -1,7 +1,7 @@
 Puppet Profiles
 ==
 
-Following the Puppet roles & profiles design, these are where profiles are stored.
+Following the Puppet roles & profiles design, this is where profiles are stored.
 
 Application setups
 
