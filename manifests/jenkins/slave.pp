@@ -17,7 +17,7 @@ class profiles::jenkins::slave {
   $puppet_lint_plugins = [
     'puppet-lint-absolute_template_path',
     'puppet-lint-param-docs', 'puppet-lint-roles_and_profiles-check',
-    'puppet-lint-strict_indent-check', 'puppet-lint-trailing_newlines-check',
+    'puppet-lint-strict_indent-check', 'puppet-lint-trailing_newline-check',
     'puppet-lint-unquoted_string-check', 'puppet-lint-variable_contains_upcase'
   ]
   package { $puppet_lint_plugins :
