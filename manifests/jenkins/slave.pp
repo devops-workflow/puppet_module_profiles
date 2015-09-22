@@ -25,6 +25,6 @@ class profiles::jenkins::slave {
     provider => 'pe_gem',
   }
 
-  package { 'lsb': ensure => latest, }
+  package { 'redhat-lsb': ensure => latest, }
   package { 'jq': ensure => latest, }
 }
