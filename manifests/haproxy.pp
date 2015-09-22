@@ -100,7 +100,7 @@ class profiles::haproxy {
 
   haproxy::frontend { 'httpsFrontEnd':
     options => {
-      'default_backend'    => 'httpsBackEnd',
+      'default_backend' => 'httpsBackEnd',
     },
     bind    => {
       "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
