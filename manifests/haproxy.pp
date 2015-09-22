@@ -90,19 +90,19 @@ class profiles::haproxy {
 #  }
 
   haproxy::frontend { 'httpFrontEnd':
-    ipaddress     => $::ipaddress,
-    ports         => '80',
-    mode          => 'http',
-    options       => {
+    ipaddress => $::ipaddress,
+    ports     => '80',
+    mode      => 'http',
+    options   => {
       'default_backend' => 'httpBackEnd',
     },
   }
 
   haproxy::frontend { 'httpsFrontEnd':
-    options       => {
+    options => {
       'default_backend'    => 'httpsBackEnd',
     },
-    bind          => {
+    bind    => {
       "${::ipaddress}:443" => ['ssl', 'crt', '/etc/haproxy/dummy.pem'],
     }
   }
