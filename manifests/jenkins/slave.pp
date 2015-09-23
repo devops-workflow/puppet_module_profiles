@@ -39,7 +39,7 @@ class profiles::jenkins::slave {
     'puppet-lint-undef_in_function-check',
     'puppet-lint-unquoted_string-check',
     'puppet-lint-usascii_format-check',
-    'puppet-lint-variable_contains_upcase'
+    'puppet-lint-variable_contains_upcase',
     'puppet-lint-version_comparison-check',
     #'puppet-lint-vim_modeline-check',
   ]
