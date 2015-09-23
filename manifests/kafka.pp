@@ -34,7 +34,7 @@ class profiles::kafka {
       'log.cleanup.interval.mins'       => '1',
       'zookeeper.connect'               => '192.168.30.20:25699',
       'zookeeper.connection.timeout.ms' => '1000000',
-    }
+    },
   }
 #  class { '::kafka::consumer': }
 #  class { '::kafka::producer': }

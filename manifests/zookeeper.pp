@@ -33,7 +33,7 @@ class profiles::zookeeper {
         ip           => '192.168.30.20',
         leaderPort   => 2888,
         electionPort => 3888,
-      }
+      },
     },
     service_name           => 'zookeeper',
     snapCount              => 100000,

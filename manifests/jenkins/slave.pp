@@ -4,7 +4,7 @@
 # Install and configure a Jenkins slave
 #
 class profiles::jenkins::slave {
-  include epel
+  include ::epel
 
   #
   # Support for Puppet
@@ -14,7 +14,8 @@ class profiles::jenkins::slave {
     provider => 'pe_gem',
   }
   # Add puppet-lint plugins
-  # On GitHub from: puppet-community, camptocamp, fiddyspence, floek, jpmasters, llowder, ninech, relud, robertpearce
+  # On GitHub from: puppet-community, camptocamp, fiddyspence, floek,
+  #                 jpmasters, llowder, ninech, relud, robertpearce
   $puppet_lint_plugins = [
     'puppet-lint-absolute_classname-check',
     'puppet-lint-absolute_template_path',

@@ -4,7 +4,7 @@
 # Install and configure 
 #
 class profiles::lldp {
-  class { 'openlldp':
+  class { '::openlldp':
     autoupgrade    => true,
     service_enable => true,
   }
