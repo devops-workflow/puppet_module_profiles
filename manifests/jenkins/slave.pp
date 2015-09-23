@@ -14,11 +14,34 @@ class profiles::jenkins::slave {
     provider => 'pe_gem',
   }
   # Add puppet-lint plugins
+  # On GitHub from: puppet-community, camptocamp, fiddyspence, floek, jpmasters, llowder, ninech, relud, robertpearce
   $puppet_lint_plugins = [
+    'puppet-lint-absolute_classname-check',
     'puppet-lint-absolute_template_path',
-    'puppet-lint-param-docs', 'puppet-lint-roles_and_profiles-check',
-    'puppet-lint-strict_indent-check', 'puppet-lint-trailing_newline-check',
-    'puppet-lint-unquoted_string-check', 'puppet-lint-variable_contains_upcase'
+    'puppet-lint-alias-check',
+    'puppet-lint-appends-check',
+    'puppet-lint-classes_and_types_beginning_with_digits-check',
+    'puppet-lint-empty_string-check',
+    'puppet-lint-file_ensure-check',
+    'puppet-lint-file_source_rights-check',
+    'puppet-lint-fileserver-check',
+    'puppet-lint-global_resource-check',
+    'puppet-lint-leading_zero-check',
+    'puppet-lint-numericvariable',
+    'puppet-lint-param-docs',
+    'puppet-lint-resource_outside_class-check',
+    'puppet-lint-roles_and_profiles-check',
+    'puppet-lint-security-plugins',
+    'puppet-lint-spaceship_operator_without_tag-check',
+    'puppet-lint-strict_indent-check',
+    'puppet-lint-trailing_comma-check',
+    'puppet-lint-trailing_newline-check',
+    'puppet-lint-undef_in_function-check',
+    'puppet-lint-unquoted_string-check',
+    'puppet-lint-usascii_format-check',
+    'puppet-lint-variable_contains_upcase'
+    'puppet-lint-version_comparison-check',
+    #'puppet-lint-vim_modeline-check',
   ]
   package { $puppet_lint_plugins :
     ensure   => latest,
