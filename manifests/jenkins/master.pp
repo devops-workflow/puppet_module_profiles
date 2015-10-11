@@ -5,14 +5,25 @@
 #
 class profiles::jenkins::master {
   # Jenkins Server
-  Class['Epel'] -> Class['Jenkins_job_builder::Config']
+  Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools']
   Class['Jenkins'] -> Class['Files']
   include ::epel
-  include ::jenkins
+  class { '::jenkins':
+   configure_firewall => true
+  }
   include ::jenkins_job_builder
   include ::files
   files::list{'jenkins-master':}
   package { 'graphviz': ensure => latest, }
+  file { '/usr/bin/pip-python':
+    ensure => link,
+    target => '/usr/bin/pip',
+  }
+  package { 'setuptools':
+    ensure   => latest,
+    provider => pip,
+  }
+
 
   # Master is also a build slave
   class { '::profiles::jenkins::slave': }
