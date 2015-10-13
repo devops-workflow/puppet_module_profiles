@@ -5,7 +5,7 @@
 #
 class profiles::jenkins::master {
   # Jenkins Server
-  Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools']
+  Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools'] -> Package['git'] -> Vcsrepo ['/root/jenkins-job-builder-config'] 
   Class['Jenkins'] -> Class['Files']
   include ::epel
   class { '::jenkins':
@@ -23,7 +23,16 @@ class profiles::jenkins::master {
     ensure   => latest,
     provider => pip,
   }
-
+  package { 'git': }
+  vcsrepo { '/root/jenkins-job-builder-config':
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/devops-workflow/jenkins-job-builder-config.git',
+    notify   => Exec['/root/jenkins-job-builder-config/run-jjb.sh'],
+  }
+  exec { '/root/jenkins-job-builder-config/run-jjb.sh':
+    refreshonly => true,
+  }
 
   # Master is also a build slave
   class { '::profiles::jenkins::slave': }
