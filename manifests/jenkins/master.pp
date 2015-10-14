@@ -6,7 +6,7 @@
 class profiles::jenkins::master {
   # Jenkins Server
   Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools'] -> Package['git'] -> Vcsrepo ['/root/jenkins-job-builder-config'] 
-  Class['Jenkins'] -> Class['Files']
+  Class['Jenkins'] -> File['/var/lib/jenkins/userContent/customIcon'] -> Class['Files']
   include ::epel
   class { '::jenkins':
    configure_firewall => true
@@ -32,6 +32,11 @@ class profiles::jenkins::master {
   }
   exec { '/root/jenkins-job-builder-config/run-jjb.sh':
     refreshonly => true,
+  }
+  file { '/var/lib/jenkins/userContent/customIcon':
+    ensure => directory,
+    owner  => jenkins,
+    group  => jenkins,
   }
 
   # Master is also a build slave
