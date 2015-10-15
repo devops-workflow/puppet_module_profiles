@@ -48,6 +48,15 @@ class profiles::jenkins::slave {
     ensure   => latest,
     provider => 'pe_gem',
   }
+  package { 'metadata-json-lint':
+    ensure   => latest,
+    provider => 'pe_gem',
+  }
+
+  #
+  # Shell
+  #
+  # gem shlint
 
   package { 'redhat-lsb': ensure => latest, }
   package { 'jq': ensure => latest, }
