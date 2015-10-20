@@ -5,11 +5,11 @@
 #
 class profiles::jenkins::master {
   # Jenkins Server
-  Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools'] -> Package['git'] -> Vcsrepo ['/root/jenkins-job-builder-config'] 
+  Class['Epel'] -> File['/usr/bin/pip-python'] -> Class['Jenkins_job_builder::Install'] -> Package['setuptools'] -> Package['git'] -> Vcsrepo ['/root/jenkins-job-builder-config']
   Class['Jenkins'] -> File['/var/lib/jenkins/userContent/customIcon'] -> Class['Files']
   include ::epel
   class { '::jenkins':
-   configure_firewall => true
+    configure_firewall => true,
   }
   include ::jenkins_job_builder
   include ::files
