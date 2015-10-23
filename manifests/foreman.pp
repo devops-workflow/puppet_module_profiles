@@ -11,7 +11,7 @@ class profiles::foreman ($release = '1.7') {
         notify  => Exec['foreman-installer'],
       }
       exec { 'foreman-installer':
-        command     => '/sbin/foreman-installer > /root/foreman-installer.log',
+        command     => '/sbin/foreman-installer --no-enable-puppet > /root/foreman-installer.log',
         timeout     => 0,
         refreshonly => true,
       }
