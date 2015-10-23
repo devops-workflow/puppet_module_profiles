@@ -10,4 +10,5 @@ class profiles::base {
   package { $pkg_utils: ensure => latest, }
 
   include ::profiles::lldp
+  include ::profiles::sudo
 }
