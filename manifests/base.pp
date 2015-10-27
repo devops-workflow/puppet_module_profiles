@@ -12,6 +12,8 @@ class profiles::base {
 
   # if physical
   #  pciutils, 
-  include ::profiles::lldp # should only be for physical, not VMs
+  unless ( "::is_virtual" == 1 ) {
+    include ::profiles::lldp # should only be for physical, not VMs
+  }
   include ::profiles::sudo
 }
