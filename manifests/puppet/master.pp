@@ -1,9 +1,7 @@
 class profiles::puppet::master {
-  class { '::puppet':
-    autosign              => true,
-    server                => true,
-    server_foreman        => false,
-    server_environments   => [],
-    server_external_nodes => '',
+  file { '/etc/hiera.yaml':
+    ensure  => link,
+    target  => '/etc/puppet/hiera.yaml',
+    require => Class['::puppet'],
   }
 }
