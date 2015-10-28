@@ -11,6 +11,9 @@ class profiles::bind {
   class { '::bind':
   }
 
+  include ::files
+  files::list{'ns-master':}
+
   bind::server::conf { '/etc/named.conf':
     acls => {
       'rfc1918' => [ '10/8', '172.16/12', '192.168/16' ],
