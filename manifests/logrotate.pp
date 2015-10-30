@@ -2,7 +2,8 @@
 # ================================
 #
 # Install and configure of rodjek/logrotate
-# See below for logrotate::ruile reference
+#
+# See below for logrotate::rule reference
 #
 # Forge Module Ref:
 #  - https://forge.puppetlabs.com/rodjek/logrotate
