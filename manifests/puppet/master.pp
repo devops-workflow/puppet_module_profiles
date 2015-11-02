@@ -7,12 +7,14 @@ class profiles::puppet::master {
   }
 
   firewall { '100 Accept inbound Puppet traffic':
-    proto  => '8140',
+    proto  => 'tcp',
+    dport  => '8140',
     action => 'accept',
   }
   firewall { '100 Accept outbound Puppet traffic':
     chain  => 'OUTPUT',
-    proto  => '443',
+    proto  => 'tcp',
+    sport  => '8140',
     action => 'accept',
   }
 

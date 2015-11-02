@@ -19,14 +19,8 @@ class profiles::firewall {
   } ->
   firewall { '004 Accept inbound SSH':
     dport  => '22',
-    proto  => tcp,
-    action => accept,
-  } ->
-  firewallchain { 'INPUT:filter:IPv4':
-    policy  => 'accept',
-  } ->
-  firewallchain { 'FORWARD:filter:IPv4':
-    policy => 'drop',
+    proto  => 'tcp',
+    action => 'accept',
   } ->
   firewall { '301 Accept outbound traffic from lo interface':
     chain    => 'OUTPUT',
@@ -47,14 +41,44 @@ class profiles::firewall {
     state  => ['RELATED', 'ESTABLISHED'],
     action => 'accept',
   } ->
-  firewall { '304 Accept outbound SSH':
+  firewall { '304 Accept outbound TCP DNS':
+    chain  => 'OUTPUT',
+    dport  => '53',
+    proto  => 'tcp',
+    action => 'accept',
+  } ->
+  firewall { '304 Accept outbound UDP DNS':
+    chain  => 'OUTPUT',
+    dport  => '53',
+    proto  => 'udp',
+    action => 'accept',
+  } ->
+  firewall { '305 Accept outbound SSH':
     chain  => 'OUTPUT',
     dport  => '22',
-    proto  => tcp,
-    action => accept,
+    proto  => 'tcp',
+    action => 'accept',
+  } ->
+  firewall { '306 Accept outbound HTTP/S':
+    chain  => 'OUTPUT',
+    dport  => ['80', '443'],
+    proto  => 'tcp',
+    action => 'accept',
+  } ->
+  firewall { '307 Accept outbound Puppet':
+    chain  => 'OUTPUT',
+    dport  => '8140',
+    proto  => 'tcp',
+    action => 'accept',
   } ->
   firewallchain { 'OUTPUT:filter:IPv4':
-    policy => 'accept',
+    policy => 'drop',
+  } ->
+  firewallchain { 'INPUT:filter:IPv4':
+    policy  => 'drop',
+  } ->
+  firewallchain { 'FORWARD:filter:IPv4':
+    policy => 'drop',
   }
 
 }
