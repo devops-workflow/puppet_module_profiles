@@ -1,6 +1,15 @@
 class profiles::firewall {
 
   include ::firewall
+
+  resources { 'firewall':
+    purge => true,
+  }
+
+  resources { 'firewallchain':
+    purge => true,
+  }
+
   firewall { '001 Accept inbound traffic to lo interface':
     proto   => 'all',
     iniface => 'lo',
