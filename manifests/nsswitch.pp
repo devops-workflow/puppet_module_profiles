@@ -26,7 +26,7 @@
 #  - sudo
 #
 
-class profiles::nsswitch
+class profiles::nsswitch {
   #
   # This should likely be moved to Hiera...
   #
