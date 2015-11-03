@@ -80,6 +80,12 @@ class profiles::firewall {
     proto  => 'tcp',
     action => 'accept',
   } ->
+  firewall { '307 Accept outbound DHCP':
+    chain  => 'OUTPUT',
+    dport  => ['68'],
+    proto  => 'udp',
+    action => 'accept',
+  } ->
   firewallchain { 'OUTPUT:filter:IPv4':
     policy => 'drop',
   } ->
