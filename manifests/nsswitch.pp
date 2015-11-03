@@ -71,23 +71,23 @@ class profiles::nsswitch {
   }
 
   class { '::nsswitch':
-    $passwd     => $passwd,
-    $group      => $group,
-    $shadow     => $shadow,
-    $hosts      => $hosts,
-    $bootparams => $bootparams,
-    $aliases    => $aliases,
-    $automount  => $automount,
-    $ethers     => $ethers,
-    $netgroup   => $netgroup,
-    $netmasks   => $netmasks,
-    # $networks?
-    $network    => $networks,
-    $protocols  => $protocols,
-    $publickey  => $publickey,
-    $rpc        => $rpc,
-    $services   => $services,
-    #$sudo       => $sudo,
+    passwd     => $passwd,
+    group      => $group,
+    shadow     => $shadow,
+    hosts      => $hosts,
+    bootparams => $bootparams,
+    aliases    => $aliases,
+    automount  => $automount,
+    ethers     => $ethers,
+    netgroup   => $netgroup,
+    netmasks   => $netmasks,
+    # networks?
+    network    => $networks,
+    protocols  => $protocols,
+    publickey  => $publickey,
+    rpc        => $rpc,
+    services   => $services,
+    #sudo       => $sudo,
   }
 }
 
