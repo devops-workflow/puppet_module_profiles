@@ -18,7 +18,7 @@
 #  - ethers
 #  - netgroup
 #  - netmasks
-#  - network
+#  - networks
 #  - protocols
 #  - publickey
 #  - rpc
@@ -41,8 +41,9 @@ class profiles::nsswitch {
       #automount  = []
       $ethers     = ['db','files']
       $netgroup   = ['nis']
+      #$initgroups = []
       #$netmasks   = []
-      $networks   = []
+      $networks   = ['files']
       $protocols  = ['db','files']
       #$publickey  = []
       $rpc        = ['db','files']
@@ -58,6 +59,10 @@ class profiles::nsswitch {
       $aliases    = ['files','nisplus']
       $automount  = ['files']
       $ethers     = ['files']
+      #*****************************************************************
+      # ********* Default for CentOS -- Not included in Module *********
+      $initgroups = ['files']
+      #*****************************************************************
       $netgroup   = ['files', 'sss']
       $netmasks   = ['files']
       $networks   = ['files']
@@ -79,10 +84,10 @@ class profiles::nsswitch {
     aliases    => $aliases,
     automount  => $automount,
     ethers     => $ethers,
+    #initgroups => $initgroups, # ***** NOT IN MODULE (eg. CentOS) *****
     netgroup   => $netgroup,
     netmasks   => $netmasks,
-    # networks?
-    network    => $networks,
+    networks   => $networks,
     protocols  => $protocols,
     publickey  => $publickey,
     rpc        => $rpc,
