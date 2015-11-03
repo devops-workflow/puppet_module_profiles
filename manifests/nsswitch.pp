@@ -70,7 +70,7 @@ class profiles::nsswitch {
     default: { warning( "Operating System not defined for $::modulename" ) }
   }
 
-  class ::nsswitch {
+  class { '::nsswitch':
     $passwd     => $passwd,
     $group      => $group,
     $shadow     => $shadow,
