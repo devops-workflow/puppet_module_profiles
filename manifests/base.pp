@@ -16,6 +16,7 @@ class profiles::base {
   unless ( $::is_virtual == "true" ) {
     include ::profiles::lldp # should only be for physical, not VMs
   }
+  include ::profiles::nsswitch
   include ::profiles::sudo
   include ::profiles::firewall
 
