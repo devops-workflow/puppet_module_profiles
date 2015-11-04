@@ -1,5 +1,7 @@
 class profiles::puppet::master {
 
+  class { '::selinux': }
+
   file { '/etc/hiera.yaml':
     ensure  => link,
     target  => '/etc/puppet/hiera.yaml',
@@ -16,6 +18,11 @@ class profiles::puppet::master {
     proto  => 'tcp',
     sport  => '8140',
     action => 'accept',
+  }
+
+  selinux::audit2allow { 'puppet-master':
+    source  => "puppet:///modules/${module_name}/selinux/messages.puppet-master",
+    require => Class['::selinux'],
   }
 
 }

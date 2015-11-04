@@ -1,14 +1,6 @@
-class profiles::firewall {
+class profiles::base::firewall {
 
   include ::firewall
-
-  resources { 'firewall':
-    purge => true,
-  }
-
-  resources { 'firewallchain':
-    purge => true,
-  }
 
   firewall { '001 Accept inbound traffic to lo interface':
     proto   => 'all',
@@ -95,5 +87,11 @@ class profiles::firewall {
   firewallchain { 'FORWARD:filter:IPv4':
     policy => 'drop',
   }
+#  resources { 'firewall':
+#    purge => true,
+#  } ->
+#  resources { 'firewallchain':
+#    purge => true,
+#  }
 
 }

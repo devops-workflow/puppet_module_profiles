@@ -18,6 +18,7 @@ class profiles::base {
   }
   include ::profiles::nsswitch
   include ::profiles::sudo
-  include ::profiles::firewall
+  include ::profiles::base::firewall
+  include ::profiles::base::selinux
 
 }
