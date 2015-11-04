@@ -52,6 +52,11 @@ class profiles::jenkins::slave {
     ensure   => latest,
     provider => 'pe_gem',
   }
+  $r10k_gems = [ 'r10k', 'r10kdiff' ]
+  package { $r10k_gems :
+    ensure   => latest,
+    provider => 'pe_gem',
+  }
 
   #
   # Shell
