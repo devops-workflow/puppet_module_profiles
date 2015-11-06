@@ -1,6 +1,15 @@
 class profiles::puppet::master {
 
-  class { '::selinux': }
+  include '::selinux'
+
+  if ( $::osfamily == 'RedHat' ) {
+    include '::epel'
+    Class['::epel'] -> Class['::selinux']
+
+    file { '/etc/yum.repos.d/passenger.repo':
+      source => "puppet:///modules/${module_name}/puppet/passenger.repo",
+    }
+  }
 
   file { '/etc/hiera.yaml':
     ensure  => link,
@@ -13,6 +22,7 @@ class profiles::puppet::master {
     dport  => '8140',
     action => 'accept',
   }
+
   firewall { '100 Accept outbound Puppet traffic':
     chain  => 'OUTPUT',
     proto  => 'tcp',
