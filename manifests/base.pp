@@ -6,11 +6,7 @@
 class profiles::base {
 
   include ::epel
-  # Defined in kafka: wget
-  $pkg_utils = ['curl', 'sysstat', 'tcpdump', 'telnet', 'traceroute', 'unzip', 'xdelta' ]
-  # Others: lsof, deltarpm, bash-completion
-  package { $pkg_utils: ensure => latest, }
-
+  include ::profiles::base::packages
   # if physical
   #  pciutils, 
   unless ( $::is_virtual == "true" ) {
