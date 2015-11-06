@@ -6,12 +6,18 @@
 class profiles::jenkins::slave {
   include ::epel
 
+  if str2bool("$::is_pe") {
+    provider_gem = 'pe_gem'
+  } else {
+    provider_gem = 'gem'
+  }
+
   #
   # Support for Puppet
   #
   package { 'puppet-lint':
     ensure   => latest,
-    provider => 'pe_gem',
+    provider => $provider_gem,
   }
   # Add puppet-lint plugins
   # On GitHub from: puppet-community, camptocamp, fiddyspence, floek,
@@ -46,16 +52,16 @@ class profiles::jenkins::slave {
   ]
   package { $puppet_lint_plugins :
     ensure   => latest,
-    provider => 'pe_gem',
+    provider => $provider_gem,
   }
   package { 'metadata-json-lint':
     ensure   => latest,
-    provider => 'pe_gem',
+    provider => $provider_gem,
   }
   $r10k_gems = [ 'r10k', 'r10kdiff' ]
   package { $r10k_gems :
     ensure   => latest,
-    provider => 'pe_gem',
+    provider => $provider_gem,
   }
 
   #
