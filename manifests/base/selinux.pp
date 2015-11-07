@@ -5,6 +5,7 @@ class profiles::base::selinux (
 
   case $::osfamily {
     'RedHat': {
+      include '::selinux'
       include '::epel'
       Class['::epel'] -> Class['::selinux']
 
@@ -19,6 +20,7 @@ class profiles::base::selinux (
       }
 
       else {
+        include '::selinux'
 
         package { 'selinux-policy-default': }
 
