@@ -9,9 +9,11 @@ class profiles::base::selinux (
       include '::epel'
       Class['::epel'] -> Class['::selinux']
 
-      package { 'selinux-policy': } ->
+      package { 'selinux-policy': }
+
       file { '/etc/selinux/config':
         content => template("${module_name}/selinux/config.erb"),
+        require => Package['selinux-policy'],
       }
     }
     'Debian': {
@@ -22,9 +24,10 @@ class profiles::base::selinux (
       else {
         include '::selinux'
 
-        package { 'selinux-policy-default': }
+        package { 'selinux-basics':
+          notify => Exec['/usr/sbin/selinux-activate'],
+        }
 
-        package { 'selinux-basics': } ~>
         exec { '/usr/sbin/selinux-activate':
           refreshonly => true,
         }
