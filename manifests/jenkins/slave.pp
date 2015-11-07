@@ -6,7 +6,7 @@
 class profiles::jenkins::slave {
   include ::epel
 
-  if str2bool("$::is_pe") {
+  if str2bool($::is_pe) {
     $provider_gem = 'pe_gem'
   } else {
     $provider_gem = 'gem'
