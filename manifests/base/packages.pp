@@ -7,7 +7,7 @@ class profiles::base::packages {
     'Debian': {
       package { 'vim': }
     }
-  }  
+  }
 
   # Defined in kafka: wget
   $pkg_utils = ['curl', 'sysstat', 'tcpdump', 'telnet', 'traceroute', 'unzip', 'xdelta' ]
