@@ -2,7 +2,7 @@ class profiles::foreman ($release = '1.7') {
 
   case $::osfamily {
     'RedHat': {
-      package { 'foreman-release': 
+      package { 'foreman-release':
         provider => rpm,
         source   => "http://yum.theforeman.org/releases/${release}/el${::operatingsystemmajrelease}/${::architecture}/foreman-release.rpm",
       }

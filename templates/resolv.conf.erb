@@ -1,0 +1,7 @@
+# This file is managed by Puppet.  Any changes will be overwritten
+<%= @domain %>
+<% @name_servers.each do |s| -%>
+nameserver <%= s %>
+<% end -%>
+search<% @search_domains.each do |s| -%> <%= s %><% end -%>
+
