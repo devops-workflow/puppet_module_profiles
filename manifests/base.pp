@@ -17,5 +17,6 @@ class profiles::base {
   include ::profiles::base::firewall
   include ::profiles::base::selinux
   include ::profiles::base::ntp
+  include ::profiles::base::resolv
 
 }
