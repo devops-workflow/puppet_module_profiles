@@ -65,9 +65,31 @@ class profiles::jenkins::slave {
   }
 
   #
+  # C/C++
+  #
+  # EPEL: cppcheck splint
+  # PIP: cppclean cpplint cpplint-junit cclint cppcheck-junit lizard
+
+  #
+  # Java
+  #
+  # PIP: lizard
+
+  #
+  # JavaScript
+  #
+  # PIP: gjslint lizard
+
+  #
+  # Python
+  #
+  # PIP: lizard
+
+  #
   # Shell
   #
   # gem shlint
+  # PIP: bashlint
 
   package { 'redhat-lsb': ensure => latest, }
   package { 'jq': ensure => latest, }
