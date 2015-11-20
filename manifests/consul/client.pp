@@ -1,25 +1,39 @@
 class profiles::consul::client (
-  $configuration_root   = '/etc/consul.d'
-  $download_file        = '0.5.2_linux_amd64.zip',
-  $download_source      = 'https://dl.bintray.com/mitchellh/consul',
+  $configuration_root,
+  $download_file,
+  $download_source,
+  $encrypt_string,
+  $server,
+  $start_join,
 ) {
 
   include ::firewall
 
-  firewall { '100 Accept inbound Consul serf_lan':
+  firewall { '100 Accept inbound Consul serf_lan TCP':
+    proto  => 'tcp',
     dport  => '8301',
-    proto  => 'all',
     action => 'accept',
   }
 
-  firewall { '100 Accept outbound Consul serf_lan':
+  firewall { '100 Accept inbound Consul serf_lan UDP':
+    proto  => 'udp',
+    dport  => '8301',
+    action => 'accept',
+  }
+
+  firewall { '100 Accept outbound Consul serf_lan TCP':
     chain    => 'OUTPUT',
-    proto    => 'all',
+    proto    => 'tcp',
     sport    => '8301',
     action   => 'accept',
   }
 
-  package { 'unzip':}
+  firewall { '100 Accept outbound Consul serf_lan UDP':
+    chain    => 'OUTPUT',
+    proto    => 'udp',
+    sport    => '8301',
+    action   => 'accept',
+  }
 
   exec { 'download-consul-zipfile':
     command => "/usr/bin/wget ${download_source}/${download_file} -O /root/${download_file}",
@@ -38,8 +52,11 @@ class profiles::consul::client (
     onlyif  => "/bin/ls /root/${download_file}",
   }
 
-  group { 'consul': } ->
+  group { 'consul':
+    ensure => present,
+  } ->
   user { 'consul':
+    ensure => present,
     groups => ['consul'],
   }
 
@@ -67,6 +84,22 @@ class profiles::consul::client (
     owner   => 'consul',
     group   => 'consul',
     require => File['/etc/consul.d'],
+  }
+
+  if ($server) {
+    class { '::profiles::consul::server':
+      encrypt_string => $encrypt_string,
+      start_join     => $start_join,
+    } -> Service['consul']
+  }
+
+  file { '/etc/init.d/consul':
+    mode    => '0755',
+    content => template("${module_name}/consul/init.erb"),
+  } ->
+  service { 'consul':
+    ensure => running,
+    enable => true,
   }
 
 }

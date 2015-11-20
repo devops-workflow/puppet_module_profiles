@@ -1,29 +1,56 @@
-class profiles::consul::server {
+class profiles::consul::server (
+  $encrypt_string,
+  $start_join,
+) {
 
-  include ::profiles::consul::client
-
-  firewall { '100 Accept inbound Consul server':
+  firewall { '100 Accept inbound Consul server TCP':
     dport  => '8300',
-    proto  => 'all',
+    proto  => 'tcp',
     action => 'accept',
   }
 
-  firewall { '100 Accept outbound Consul server':
+  firewall { '100 Accept inbound Consul server UDP':
+    dport  => '8300',
+    proto  => 'udp',
+    action => 'accept',
+  }
+
+  firewall { '100 Accept outbound Consul server TCP':
     chain    => 'OUTPUT',
-    proto    => 'all',
+    proto    => 'tcp',
     sport    => '8300',
     action   => 'accept',
   }
 
-  firewall { '100 Accept inbound Consul serf_wan':
+  firewall { '100 Accept outbound Consul server UDP':
+    chain    => 'OUTPUT',
+    proto    => 'udp',
+    sport    => '8300',
+    action   => 'accept',
+  }
+
+  firewall { '100 Accept inbound Consul serf_wan TCP':
     dport  => '8302',
-    proto  => 'all',
+    proto  => 'tcp',
     action => 'accept',
   }
 
-  firewall { '100 Accept outbound Consul serf_wan':
+  firewall { '100 Accept inbound Consul serf_wan UDP':
+    dport  => '8302',
+    proto  => 'udp',
+    action => 'accept',
+  }
+
+  firewall { '100 Accept outbound Consul serf_wan TCP':
     chain    => 'OUTPUT',
-    proto    => 'all',
+    proto    => 'tcp',
+    sport    => '8302',
+    action   => 'accept',
+  }
+
+  firewall { '100 Accept outbound Consul serf_wan UDP':
+    chain    => 'OUTPUT',
+    proto    => 'udp',
     sport    => '8302',
     action   => 'accept',
   }
