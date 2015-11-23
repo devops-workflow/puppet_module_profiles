@@ -93,10 +93,34 @@ class profiles::consul::client (
     } -> Service['consul']
   }
 
-  file { '/etc/init.d/consul':
-    mode    => '0755',
-    content => template("${module_name}/consul/init.erb"),
-  } ->
+  if ( $::osfamily == 'RedHat' ) {
+    if ( $::operatingsystemmajrelease >= 7 ) {
+      file { '/usr/lib/systemd/system/consul.service':
+        mode    => '0755',
+        content => template("${module_name}/consul/systemd.erb"),
+        before  => Service['consul'],
+      }
+    }
+    else {
+      file { '/etc/init.d/consul':
+        mode    => '0755',
+        content => template("${module_name}/consul/init.erb"),
+        before  => Service['consul'],
+      }
+    }
+  }
+  if ( $::osfamily == 'Debian' ) {
+    file { '/etc/init/consul.conf':
+      mode    => '0644',
+      content => template("${module_name}/consul/upstart.erb"),
+      before  => Service['consul'],
+    } ->
+    file { '/etc/init.d/consul':
+      ensure => link,
+      target => '/lib/init/upstart-job',
+    }
+  }
+
   service { 'consul':
     ensure => running,
     enable => true,
