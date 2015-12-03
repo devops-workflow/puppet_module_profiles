@@ -77,15 +77,15 @@ class profiles::base::firewall {
     dport  => ['68'],
     proto  => 'udp',
     action => 'accept',
-  } ->
+  }# ->
   firewallchain { 'OUTPUT:filter:IPv4':
-    policy => 'drop',
+    policy => 'accept',
   } ->
   firewallchain { 'INPUT:filter:IPv4':
-    policy  => 'drop',
+    policy  => 'accept',
   } ->
   firewallchain { 'FORWARD:filter:IPv4':
-    policy => 'drop',
+    policy => 'accept',
   }
 #  resources { 'firewall':
 #    purge => true,

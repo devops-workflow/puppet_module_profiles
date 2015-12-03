@@ -18,14 +18,14 @@ class profiles::consul::server (
   firewall { '100 Accept outbound Consul server TCP':
     chain    => 'OUTPUT',
     proto    => 'tcp',
-    sport    => '8300',
+    dport    => '8300',
     action   => 'accept',
   }
 
   firewall { '100 Accept outbound Consul server UDP':
     chain    => 'OUTPUT',
     proto    => 'udp',
-    sport    => '8300',
+    dport    => '8300',
     action   => 'accept',
   }
 
@@ -44,14 +44,14 @@ class profiles::consul::server (
   firewall { '100 Accept outbound Consul serf_wan TCP':
     chain    => 'OUTPUT',
     proto    => 'tcp',
-    sport    => '8302',
+    dport    => '8302',
     action   => 'accept',
   }
 
   firewall { '100 Accept outbound Consul serf_wan UDP':
     chain    => 'OUTPUT',
     proto    => 'udp',
-    sport    => '8302',
+    dport    => '8302',
     action   => 'accept',
   }
 

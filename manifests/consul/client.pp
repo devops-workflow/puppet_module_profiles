@@ -24,14 +24,14 @@ class profiles::consul::client (
   firewall { '100 Accept outbound Consul serf_lan TCP':
     chain    => 'OUTPUT',
     proto    => 'tcp',
-    sport    => '8301',
+    dport    => '8301',
     action   => 'accept',
   }
 
   firewall { '100 Accept outbound Consul serf_lan UDP':
     chain    => 'OUTPUT',
     proto    => 'udp',
-    sport    => '8301',
+    dport    => '8301',
     action   => 'accept',
   }
 
