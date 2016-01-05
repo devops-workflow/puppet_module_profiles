@@ -2,13 +2,14 @@ class profiles::puppet::master {
 
   include '::selinux'
 
-  Class['::puppet'] -> Class['::puppetdb::globals'] -> Class['::puppetdb']
+  Class['::puppet'] -> Class['::puppetdb::globals'] -> Class['::puppetdb'] -> Class['::puppetdb::master::config']
   include '::puppet'
   include '::puppetdb::globals'
   include '::puppetdb'
+  include '::puppetdb::master::config'
 
   # Vagrant hosts need to resolve their Facter fqdn
-  unless ($::isvirtual) {
+  if ($::virtual == 'virtualbox') {
     host { $::fqdn:
       ip => $::ipaddress_enp0s8,
     }
