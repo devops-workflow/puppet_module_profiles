@@ -2,10 +2,17 @@ class profiles::puppet::master {
 
   include '::selinux'
 
+  Class['::puppet'] -> Class['::puppetdb::globals'] -> Class['::puppetdb']
   include '::puppet'
   include '::puppetdb::globals'
   include '::puppetdb'
-  include '::puppetdb::master::config'
+
+  # Vagrant hosts need to resolve their Facter fqdn
+  unless ($::isvirtual) {
+    host { $::fqdn:
+      ip => $::ipaddress_enp0s8,
+    }
+  }
 
   if ( $::osfamily == 'RedHat' ) {
     include '::epel'
@@ -37,6 +44,11 @@ class profiles::puppet::master {
 
   selinux::audit2allow { 'puppet-master':
     source  => "puppet:///modules/${module_name}/selinux/messages.puppet-master",
+    require => Class['::selinux'],
+  }
+
+  selinux::audit2allow { 'puppetdb':
+    source  => "puppet:///modules/${module_name}/selinux/messages.puppetdb",
     require => Class['::selinux'],
   }
 
