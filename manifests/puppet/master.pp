@@ -2,6 +2,11 @@ class profiles::puppet::master {
 
   include '::selinux'
 
+  include '::puppet'
+  include '::puppetdb::globals'
+  include '::puppetdb'
+  include '::puppetdb::master::config'
+
   if ( $::osfamily == 'RedHat' ) {
     include '::epel'
     Class['::epel'] -> Class['::selinux']

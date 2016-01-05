@@ -1,0 +1,2 @@
+type=AVC msg=audit(1452008172.679:706): avc:  denied  { name_connect } for  pid=4965 comm="ruby" dest=8081 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:transproxy_port_t:s0 tclass=tcp_socket
+type=SYSCALL msg=audit(1452008172.679:706): arch=c000003e syscall=42 success=no exit=-13 a0=d a1=7f60b070e230 a2=10 a3=0 items=0 ppid=4945 pid=4965 auid=4294967295 uid=52 gid=52 euid=52 suid=52 fsuid=52 egid=52 sgid=52 fsgid=52 tty=(none) ses=4294967295 comm="ruby" exe="/usr/bin/ruby" subj=system_u:system_r:httpd_t:s0 key=(null)
