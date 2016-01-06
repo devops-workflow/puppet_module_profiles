@@ -1,12 +1,24 @@
 class profiles::puppet::master {
 
-  include '::selinux'
+  Class['::puppetdb::globals'] -> Class['::puppetdb'] -> Class['::puppetdb::master::config'] -> Class['::puppetboard']
 
-  Class['::puppet'] -> Class['::puppetdb::globals'] -> Class['::puppetdb'] -> Class['::puppetdb::master::config']
   include '::puppet'
   include '::puppetdb::globals'
   include '::puppetdb'
   include '::puppetdb::master::config'
+
+  include '::apache::mod::wsgi'
+  include '::puppetboard'
+  include '::puppetboard::apache::conf'
+
+  include '::selinux'
+
+  exec { 'puppetdb-ssl-setup':
+    command     => '/sbin/puppetdb ssl-setup',
+    refreshonly => true,
+    subscribe   => Exec['puppet_server_config-generate_ca_cert'],
+    before      => Service['puppetdb'],
+  }
 
   # Vagrant hosts need to resolve their Facter fqdn
   if ($::virtual == 'virtualbox') {
@@ -50,6 +62,11 @@ class profiles::puppet::master {
 
   selinux::audit2allow { 'puppetdb':
     source  => "puppet:///modules/${module_name}/selinux/messages.puppetdb",
+    require => Class['::selinux'],
+  }
+
+  selinux::audit2allow { 'puppetboard':
+    source  => "puppet:///modules/${module_name}/selinux/messages.puppetboard",
     require => Class['::selinux'],
   }
 

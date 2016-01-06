@@ -1,0 +1,2 @@
+type=AVC msg=audit(1452095413.878:1409): avc:  denied  { name_connect } for  pid=10101 comm="httpd" dest=8080 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:http_cache_port_t:s0 tclass=tcp_socket
+type=SYSCALL msg=audit(1452095413.878:1409): arch=c000003e syscall=42 success=no exit=-13 a0=f a1=7fb2c404a4f0 a2=10 a3=4 items=0 ppid=9190 pid=10101 auid=4294967295 uid=994 gid=1001 euid=994 suid=994 fsuid=994 egid=1001 sgid=1001 fsgid=1001 tty=(none) ses=4294967295 comm="httpd" exe="/usr/sbin/httpd" subj=system_u:system_r:httpd_t:s0 key=(null)
