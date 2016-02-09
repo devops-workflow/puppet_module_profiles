@@ -14,6 +14,7 @@ class profiles::base {
   }
   include ::profiles::nsswitch
   include ::profiles::sudo
+  include ::profiles::timezone
   include ::profiles::base::firewall
   include ::profiles::base::selinux
   include ::profiles::base::ntp
